@@ -4,8 +4,9 @@ from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-ROOT_ENV_FILE = Path(__file__).resolve().parents[3] / ".env"
-ADMIN_ENV_FILE = Path(__file__).resolve().parents[3] / ".env.admin"
+BACKEND_DIR = Path(__file__).resolve().parents[2]
+ROOT_ENV_FILE = BACKEND_DIR / ".env"
+ADMIN_ENV_FILE = BACKEND_DIR / ".env.admin"
 
 
 class Settings(BaseSettings):

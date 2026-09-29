@@ -19,17 +19,17 @@ This is a development foundation, not a production launch. The browser preview d
 
 ## Run locally
 
-Copy `.env.example` to `.env` and set backend credentials only when testing those integrations. Keep real secrets out of source control.
+Copy `frontend/.env.example` to `frontend/.env.local` and `backend/.env.example` to `backend/.env`. Set backend credentials only when testing those integrations. Keep real secrets out of source control.
 
-To enable live website-assessment and consultation M-Pesa checkout, set your Paystack live secret key (`sk_live_...`) as `PAYSTACK_SECRET_KEY` in the root `.env`. The current server-side M-Pesa flow does not use a Paystack public key; never expose the secret through a `NEXT_PUBLIC_` variable. Without the secret, checkout stays disabled.
+To enable live website-assessment and consultation M-Pesa checkout, set your Paystack live secret key (`sk_live_...`) as `PAYSTACK_SECRET_KEY` in `backend/.env`. The current server-side M-Pesa flow does not use a Paystack public key; never expose the secret through a `NEXT_PUBLIC_` variable. Without the secret, checkout stays disabled.
 
 In the Paystack dashboard, enable the Kenya M-Pesa channel and configure the webhook URL as `https://<your-api-host>/api/v1/payments/webhook`. Paystack needs a publicly reachable HTTPS URL to deliver production webhooks; local checkout status is also verified directly by the API.
 
 Install and run the frontend:
 
 ```powershell
-npm install
-npm run dev
+npm --prefix frontend install
+npm --prefix frontend run dev
 ```
 
 The frontend runs at `http://localhost:3000`.
@@ -48,7 +48,7 @@ The API health check is `http://localhost:8000/healthz`; interactive API docs ar
 
 ## Deploy frontend and backend
 
-Deploy the repository root as a Next.js project on Vercel. The root `vercel.json` pins the framework and build commands; keep the Vercel Root Directory set to `.`.
+Deploy the repository on Vercel with the Root Directory set to `frontend`. Its `vercel.json` pins the Next.js framework and build commands.
 
 Deploy the FastAPI service and PostgreSQL database from `render.yaml` on Render. During setup, set `FRONTEND_URL` and `APP_URL` to the Vercel site's origin (for example, `https://your-project.vercel.app`). Set `ADMIN_USERNAME` and `ADMIN_PASSWORD` to unique credentials. The blueprint's free service/database plans are for evaluation and may sleep or have storage limits; choose appropriate paid plans for a production service.
 
@@ -64,7 +64,7 @@ python -m pytest
 
 ## Admin access
 
-The dashboard at `/admin` is not linked from public navigation. Its dedicated login uses backend-only `ADMIN_USERNAME` and `ADMIN_PASSWORD` settings from the ignored root `.env.admin` file; the API creates the corresponding `ADMIN` account on startup. Keep `.env.admin` private and use a strong, unique password in deployed environments. Admins can review private reports, save article drafts, and publish only after adding source URLs and confirming that sources and claims were reviewed. Public posts are evidence-based information, not legal findings that an entity is fraudulent.
+The dashboard at `/admin` is not linked from public navigation. Its dedicated login uses backend-only `ADMIN_USERNAME` and `ADMIN_PASSWORD` settings from the ignored `backend/.env.admin` file; the API creates the corresponding `ADMIN` account on startup. Keep `.env.admin` private and use a strong, unique password in deployed environments. Admins can review private reports, save article drafts, and publish only after adding source URLs and confirming that sources and claims were reviewed. Public posts are evidence-based information, not legal findings that an entity is fraudulent.
 
 ## Security notes
 
