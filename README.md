@@ -46,6 +46,16 @@ uvicorn app.main:app --reload --port 8000
 
 The API health check is `http://localhost:8000/healthz`; interactive API docs are at `http://localhost:8000/docs`.
 
+## Deploy frontend and backend
+
+Deploy the repository root as a Next.js project on Vercel. The root `vercel.json` pins the framework and build commands; keep the Vercel Root Directory set to `.`.
+
+Deploy the FastAPI service and PostgreSQL database from `render.yaml` on Render. During setup, set `FRONTEND_URL` and `APP_URL` to the Vercel site's origin (for example, `https://your-project.vercel.app`). Set `ADMIN_USERNAME` and `ADMIN_PASSWORD` to unique credentials. The blueprint's free service/database plans are for evaluation and may sleep or have storage limits; choose appropriate paid plans for a production service.
+
+In Vercel Project Settings > Environment Variables, set `NEXT_PUBLIC_API_URL` to the Render API origin, such as `https://tradeshield-api.onrender.com` (the frontend adds `/api/v1` automatically). Redeploy the Vercel project after setting it. Add `PAYSTACK_SECRET_KEY` and any optional provider keys to the Render service only; never expose backend secrets through `NEXT_PUBLIC_*` variables.
+
+For reliable account sessions, use custom frontend and API hostnames under the same registrable domain (for example, `www.example.com` and `api.example.com`). The default Vercel and Render hostnames are cross-site, while the current session cookie is `SameSite=Lax`.
+
 Run backend tests from `backend`:
 
 ```powershell

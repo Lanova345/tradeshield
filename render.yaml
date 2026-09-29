@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: tradeshield-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tradeshield-db
+          property: connectionString
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false
+      - key: APP_URL
+        sync: false
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+
+databases:
+  - name: tradeshield-db
+    databaseName: tradeshield
+    user: tradeshield
+    plan: free
