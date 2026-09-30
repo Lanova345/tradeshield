@@ -7,10 +7,15 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { API_BASE_URL } from "@/lib/site-api";
 
 type CheckoutState = "checking" | "paid" | "pending" | "error";
+const defaultPrompt = "Approve the M-Pesa prompt on your phone to complete payment.";
 
 export default function ConsultationReturnPage() {
   const [state, setState] = useState<CheckoutState>("checking");
   const [retryCount, setRetryCount] = useState(0);
+  const [prompt] = useState(() => {
+    if (typeof window === "undefined") return defaultPrompt;
+    return new URLSearchParams(window.location.search).get("prompt") || defaultPrompt;
+  });
 
   useEffect(() => {
     let cancelled = false;
@@ -83,7 +88,7 @@ export default function ConsultationReturnPage() {
           <span className="consultation-return-icon is-checking"><LoaderCircle size={22} /></span>
           <span className="account-panel-kicker">PAYMENT STATUS</span>
           <h1>Checking your payment.</h1>
-          <p>We are confirming the transaction with Paystack. Approve the M-Pesa prompt on your phone and keep this page open.</p>
+          <p>We are confirming the transaction with Paystack. {prompt} Keep this page open.</p>
         </>}
         {state === "paid" && <>
           <span className="consultation-return-icon is-paid"><Check size={22} /></span>

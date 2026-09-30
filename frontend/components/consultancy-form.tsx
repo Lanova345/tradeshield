@@ -36,9 +36,10 @@ export function ConsultancyForm() {
         throw new Error(problem?.detail || "We could not start Paystack checkout. Please try again.");
       }
 
-      const checkout = (await response.json()) as { reference?: string; status?: string };
+      const checkout = (await response.json()) as { reference?: string; status?: string; display_text?: string };
       if (!checkout.reference || checkout.status !== "pay_offline") throw new Error("Paystack did not send an M-Pesa prompt.");
-      router.push(`/consultation/return?reference=${encodeURIComponent(checkout.reference)}`);
+      const prompt = checkout.display_text ? `&prompt=${encodeURIComponent(checkout.display_text)}` : "";
+      router.push(`/consultation/return?reference=${encodeURIComponent(checkout.reference)}${prompt}`);
     } catch (requestError) {
       setError(requestError instanceof Error ? requestError.message : "We could not start Paystack checkout. Please try again.");
       setIsSubmitting(false);

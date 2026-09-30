@@ -32,11 +32,16 @@ type Evidence = {
 
 type ScanReport = ScanStatus & { evidence: Evidence[] };
 type PageState = "checking" | "scanning" | "completed" | "pending" | "failed" | "error";
+const defaultPrompt = "Approve the M-Pesa prompt on your phone to complete payment.";
 
 export default function PaymentReturnPage() {
   const [state, setState] = useState<PageState>("checking");
   const [report, setReport] = useState<ScanReport | null>(null);
   const [retryCount, setRetryCount] = useState(0);
+  const [prompt] = useState(() => {
+    if (typeof window === "undefined") return defaultPrompt;
+    return new URLSearchParams(window.location.search).get("prompt") || defaultPrompt;
+  });
 
   useEffect(() => {
     let cancelled = false;
@@ -159,7 +164,7 @@ export default function PaymentReturnPage() {
           <span className="consultation-return-icon is-checking"><LoaderCircle size={22} /></span>
           <span className="account-panel-kicker">{state === "checking" ? "PAYMENT STATUS" : "ASSESSMENT IN PROGRESS"}</span>
           <h1>{state === "checking" ? "Checking your payment." : "Your website is being assessed."}</h1>
-          <p>{state === "checking" ? "Approve the M-Pesa prompt on your phone. We will start the scan as soon as Paystack confirms payment." : "We are collecting public technical and website evidence. Keep this page open for your report."}</p>
+          <p>{state === "checking" ? `${prompt} We will start the scan as soon as Paystack confirms payment.` : "We are collecting public technical and website evidence. Keep this page open for your report."}</p>
         </div>}
 
         {state === "completed" && report && <>

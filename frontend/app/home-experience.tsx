@@ -232,10 +232,11 @@ export default function HomeExperience() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: mpesaPhone }),
       });
-      const checkout = await paymentResponse.json().catch(() => null) as { reference?: string; status?: string; detail?: string } | null;
+      const checkout = await paymentResponse.json().catch(() => null) as { reference?: string; status?: string; display_text?: string; detail?: string } | null;
       if (!paymentResponse.ok) throw new Error(checkout?.detail || "We could not start M-Pesa checkout. Please try again.");
       if (!checkout?.reference || checkout.status !== "pay_offline") throw new Error("Paystack did not send an M-Pesa prompt.");
-      router.push(`/payment/return?reference=${encodeURIComponent(checkout.reference)}`);
+      const prompt = checkout.display_text ? `&prompt=${encodeURIComponent(checkout.display_text)}` : "";
+      router.push(`/payment/return?reference=${encodeURIComponent(checkout.reference)}${prompt}`);
     } catch (requestError) {
       setPaymentError(requestError instanceof Error ? requestError.message : "We could not start this assessment. Please try again.");
     } finally {
