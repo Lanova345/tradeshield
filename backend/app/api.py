@@ -301,7 +301,8 @@ async def publish_report_as_article(
 
 @router.post("/auth/logout", status_code=status.HTTP_204_NO_CONTENT)
 async def logout(response: Response) -> Response:
-    response.delete_cookie(key=cookie_options()["key"], path="/", httponly=True, secure=cookie_options()["secure"], samesite="lax")
+    options = cookie_options()
+    response.delete_cookie(key=options["key"], path="/", httponly=True, secure=options["secure"], samesite=options["samesite"])
     response.status_code = status.HTTP_204_NO_CONTENT
     return response
 

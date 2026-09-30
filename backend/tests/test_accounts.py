@@ -3,9 +3,11 @@ from uuid import uuid4
 import pytest
 from fastapi import HTTPException, Response
 
-from app.api import get_current_account, register
+from app.api import get_current_account, logout, register
+from app.core.config import settings
 from app.models import AuditLog, User
 from app.schemas import RegisterInput
+from app.services.auth import cookie_options
 
 
 class FakeSession:
@@ -36,6 +38,35 @@ class FakeSession:
 
     async def rollback(self):
         return None
+
+
+@pytest.mark.parametrize(
+    ("app_url", "expected_secure", "expected_samesite"),
+    [
+        ("http://localhost:3000", False, "lax"),
+        ("https://tradeshield-zeta.vercel.app", True, "none"),
+    ],
+)
+def test_cookie_options_match_deployment_origin(monkeypatch, app_url, expected_secure, expected_samesite) -> None:
+    monkeypatch.setattr(settings, "app_url", app_url)
+
+    options = cookie_options()
+
+    assert options["secure"] is expected_secure
+    assert options["samesite"] == expected_samesite
+
+
+@pytest.mark.asyncio
+async def test_logout_clears_secure_cross_site_cookie(monkeypatch) -> None:
+    monkeypatch.setattr(settings, "app_url", "https://tradeshield-zeta.vercel.app")
+    response = Response()
+
+    await logout(response)
+
+    set_cookie = response.headers["set-cookie"].lower()
+    assert "samesite=none" in set_cookie
+    assert "secure" in set_cookie
+    assert "max-age=0" in set_cookie
 
 
 @pytest.mark.asyncio
