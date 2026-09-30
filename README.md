@@ -21,7 +21,7 @@ This is a development foundation, not a production launch. The browser preview d
 
 Copy `frontend/.env.example` to `frontend/.env.local` and `backend/.env.example` to `backend/.env`. Set backend credentials only when testing those integrations. Keep real secrets out of source control.
 
-To enable live website-assessment and consultation M-Pesa checkout, set your Paystack live secret key (`sk_live_...`) as `PAYSTACK_SECRET_KEY` in `backend/.env`. The current server-side M-Pesa flow does not use a Paystack public key; never expose the secret through a `NEXT_PUBLIC_` variable. Without the secret, checkout stays disabled.
+To enable website-assessment and consultation M-Pesa checkout, set a Paystack test secret key (`sk_test_...`) for testing or a live secret key (`sk_live_...`) for real payments as `PAYSTACK_SECRET_KEY` in `backend/.env` or the backend host's environment. The current server-side M-Pesa flow does not use a Paystack public key; never expose the secret through a `NEXT_PUBLIC_` variable. Without the secret, checkout stays disabled. The assessment costs KES 500 and consultation costs KES 2,000.
 
 In the Paystack dashboard, enable the Kenya M-Pesa channel and configure the webhook URL as `https://<your-api-host>/api/v1/payments/webhook`. Paystack needs a publicly reachable HTTPS URL to deliver production webhooks; local checkout status is also verified directly by the API.
 

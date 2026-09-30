@@ -56,7 +56,7 @@ export function ConsultancyForm() {
       <p className="consultancy-form-note">Please leave out passwords, account numbers, or other sensitive information.</p>
       {error && <p className="consultancy-form-error" role="alert">{error}</p>}
       <div className="consultancy-form-footer">
-        <div><span>CONSULTATION</span><strong>USD 16</strong></div>
+        <div><span>CONSULTATION</span><strong>KES 2,000</strong></div>
         <button className="consultancy-pay-button" type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Opening Paystack..." : "Continue to M-Pesa"}
           {!isSubmitting && <ArrowRight size={16} />}

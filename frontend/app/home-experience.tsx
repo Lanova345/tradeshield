@@ -264,7 +264,7 @@ export default function HomeExperience() {
             <p className={message.startsWith("Enter") ? "form-message form-error" : "form-message"} id="url-message" aria-live="polite">{message || "Paste a URL to review it. No scan starts at this step."}</p>
           </form>
           {assessmentReady && <form className="checkout-summary" onSubmit={startWebsiteAssessment}>
-            <div className="checkout-price"><span>ONE-TIME ASSESSMENT</span><strong>USD 4</strong></div>
+            <div className="checkout-price"><span>ONE-TIME ASSESSMENT</span><strong>KES 500</strong></div>
             <p>Enter your M-Pesa number. The prompt shows the payable amount; scanning starts after payment is confirmed.</p>
             <label className="scan-phone-label" htmlFor="scan-mpesa-phone">M-Pesa phone number</label>
             <input className="scan-phone-input" id="scan-mpesa-phone" type="tel" autoComplete="tel" inputMode="tel" minLength={9} maxLength={24} placeholder="+254 7XX XXX XXX" value={mpesaPhone} onChange={(event) => setMpesaPhone(event.target.value)} required />
