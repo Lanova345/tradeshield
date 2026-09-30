@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Trade Shield</title>
+  <path fill="#102b46" d="M32 4 55 12v17c0 14.2-9.4 25.4-23 31C18.4 54.4 9 43.2 9 29V12L32 4Z"/>
+  <path fill="none" stroke="#35d4d0" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M32 10 49 16v13c0 10.8-6.6 19.4-17 24.2C21.6 48.4 15 39.8 15 29V16l17-6Z"/>
+  <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" d="m21 31 7 7 15-16"/>
+</svg>
