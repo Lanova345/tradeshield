@@ -50,13 +50,11 @@ The API health check is `http://localhost:8000/healthz`; interactive API docs ar
 
 Deploy the repository on Vercel with the Root Directory set to `frontend`. Its `vercel.json` pins the Next.js framework and build commands.
 
-Deploy the FastAPI service and PostgreSQL database from `render.yaml` on Render. During setup, set `FRONTEND_URL` and `APP_URL` to the Vercel site's origin (for example, `https://your-project.vercel.app`). Set `ADMIN_USERNAME` and `ADMIN_PASSWORD` to unique credentials. The blueprint's free service/database plans are for evaluation and may sleep or have storage limits; choose appropriate paid plans for a production service.
+Deploy the FastAPI service from `backend` on Railway using `backend/railway.toml`, and attach a PostgreSQL service. Set the API service's `DATABASE_URL` to the database service reference, along with `FRONTEND_URL=https://tradeshield-zeta.vercel.app` and `APP_URL=https://tradeshield-zeta.vercel.app`. Also set `JWT_SECRET_KEY`, `ADMIN_USERNAME`, and `ADMIN_PASSWORD` to unique production values.
 
-For Railway, deploy the `backend` directory as the API service and use `backend/railway.toml`. Add a PostgreSQL service, then in the API service Variables add `DATABASE_URL` as a service reference to the database service's `DATABASE_URL` value, for example `${{tradeshield-db.DATABASE_URL}}`. Also set `FRONTEND_URL`, `APP_URL`, `JWT_SECRET_KEY`, `ADMIN_USERNAME`, and `ADMIN_PASSWORD` on the API service. `railway connect` only opens a database shell; it does not connect the database to the API service.
+In Vercel Project Settings > Environment Variables, set `NEXT_PUBLIC_API_URL` to `https://tradeshield-api-production-372c.up.railway.app` (the frontend adds `/api/v1` automatically), then redeploy the project. Add `PAYSTACK_SECRET_KEY` and optional provider keys to the Railway API service only; never expose backend secrets through `NEXT_PUBLIC_*` variables. `render.yaml` remains available as an alternate Render deployment blueprint.
 
-In Vercel Project Settings > Environment Variables, set `NEXT_PUBLIC_API_URL` to the deployed API origin, such as `https://tradeshield-api.onrender.com` or your Railway API URL (the frontend adds `/api/v1` automatically). Redeploy the Vercel project after setting it. Add `PAYSTACK_SECRET_KEY` and any optional provider keys to the API service only; never expose backend secrets through `NEXT_PUBLIC_*` variables.
-
-For reliable account sessions, use custom frontend and API hostnames under the same registrable domain (for example, `www.example.com` and `api.example.com`). The default Vercel and Render hostnames are cross-site, while the current session cookie is `SameSite=Lax`.
+For reliable account sessions, use custom frontend and API hostnames under the same registrable domain (for example, `www.example.com` and `api.example.com`). The default Vercel and Railway hostnames are cross-site, while the current session cookie is `SameSite=Lax`.
 
 Run backend tests from `backend`:
 
