@@ -66,9 +66,9 @@ export default function IntelligencePage() {
 
       <section className="intel-hero">
         <div className="intel-hero-copy">
-          <span className="intel-eyebrow"><span /> TRADING RISK / KENYA</span>
+          <span className="intel-eyebrow"><span /> TRADING RISK / AFRICA</span>
           <h1>Spot the warning signs <em>before</em> you send money.</h1>
-          <p>Trade Shield helps you examine a trading website through technical signals, public claims, threat-reputation context, and relevant Kenyan regulatory information.</p>
+          <p>Trade Shield helps you examine a trading website through technical signals, public claims, threat-reputation context, and relevant African regulatory information.</p>
           <div className="intel-hero-actions">
             <Link className="button button-lime" href="/#assessment">Check a website <ArrowRight size={16} /></Link>
             <a className="intel-text-link" href="#how-to-use">How to use the findings <ArrowDown size={15} /></a>

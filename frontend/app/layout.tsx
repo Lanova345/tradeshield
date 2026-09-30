@@ -9,7 +9,7 @@ const displayFont = Space_Grotesk({ subsets: ["latin"], variable: "--font-displa
 export const metadata: Metadata = {
   title: "Trade Shield Africa | Check Before You Deposit",
   description:
-    "Investigate trading and investment websites with Kenyan regulatory information, technical analysis and threat intelligence before you deposit.",
+    "Investigate trading and investment websites with African regulatory information, technical analysis and threat intelligence before you deposit.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -1,6 +1,6 @@
 # Trade Shield Africa
 
-Kenya-first digital investment website risk intelligence. The product is evidence-led: external signals and technical observations feed a deterministic risk score; AI is limited to explanation and cannot change evidence or score.
+Africa-focused digital investment website risk intelligence. The product is evidence-led: external signals and technical observations feed a deterministic risk score; AI is limited to explanation and cannot change evidence or score.
 
 ## Current implementation
 
@@ -9,7 +9,7 @@ Kenya-first digital investment website risk intelligence. The product is evidenc
 - Private site-report intake, role-guarded editorial moderation, and a public News & Updates section for source-cited articles.
 - SQLite is the local default; production deployments should configure Neon using `postgresql+asyncpg` and Alembic migrations.
 
-This is a development foundation, not a production launch. The browser preview does not submit scans or charge for assessments. Paid consultation questions are stored, but no staff notification or fulfillment workflow is configured. PDF reports and report verification, AI chat, a production job queue, rate limiting, and deployment-grade migrations/monitoring still need implementation and security review. Public report intake should be rate-limited before launch. External provider credentials and maintained official Kenyan register feeds are not included. An absent regulatory match is never treated as proof of fraud.
+This is a development foundation, not a production launch. The browser preview does not submit scans or charge for assessments. Paid consultation questions are stored, but no staff notification or fulfillment workflow is configured. PDF reports and report verification, AI chat, a production job queue, rate limiting, and deployment-grade migrations/monitoring still need implementation and security review. Public report intake should be rate-limited before launch. External provider credentials and maintained official African regulator register feeds are not included. An absent regulatory match is never treated as proof of fraud.
 
 ## Prerequisites
 

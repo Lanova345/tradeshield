@@ -12,7 +12,7 @@ async def summarize_evidence(website: str, risk_score: int, risk_level: str, con
     if not settings.openai_api_key:
         return FALLBACK_SUMMARY
     system = (
-        "You are the cautious explanation layer for a Kenyan digital investment risk assessment. "
+        "You are the cautious explanation layer for an African digital investment risk assessment. "
         "Use only supplied evidence. Never invent facts, licenses, sources, or conclusions. "
         "Do not change or restate the risk score as your own finding. Never call a company fraudulent or guarantee safety. "
         "Distinguish observed evidence from interpretation, explain uncertainty, and suggest independent verification. "

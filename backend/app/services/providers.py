@@ -55,7 +55,7 @@ class SafeBrowsingProvider:
         if not settings.google_safe_browsing_api_key:
             return ProviderFinding(self.name, "UNAVAILABLE", "Provider credentials are not configured.")
         endpoint = "https://safebrowsing.googleapis.com/v4/threatMatches:find"
-        payload = {"client": {"clientId": "trade-shield-kenya", "clientVersion": "0.1"}, "threatInfo": {"threatTypes": ["MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE", "POTENTIALLY_HARMFUL_APPLICATION"], "platformTypes": ["ANY_PLATFORM"], "threatEntryTypes": ["URL"], "threatEntries": [{"url": url}]}}
+        payload = {"client": {"clientId": "trade-shield-africa", "clientVersion": "0.1"}, "threatInfo": {"threatTypes": ["MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE", "POTENTIALLY_HARMFUL_APPLICATION"], "platformTypes": ["ANY_PLATFORM"], "threatEntryTypes": ["URL"], "threatEntries": [{"url": url}]}}
         async with httpx.AsyncClient(timeout=8, follow_redirects=False) as client:
             response = await client.post(endpoint, params={"key": settings.google_safe_browsing_api_key}, json=payload)
         response.raise_for_status()
@@ -147,4 +147,4 @@ class PublicRegisterProvider:
     """Conservative default until an official, maintained register feed is configured."""
 
     async def verify_claim(self, entity_name: str, license_number: str | None, service_category: str | None) -> ProviderFinding:
-        return ProviderFinding("Kenyan regulator public registers", "NOT_VERIFIED", "No authoritative register feed is configured; absence of a match is not evidence of fraud.")
+        return ProviderFinding("African regulator public registers", "NOT_VERIFIED", "No authoritative register feed is configured; absence of a match is not evidence of fraud.")

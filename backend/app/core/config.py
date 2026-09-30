@@ -10,7 +10,7 @@ ADMIN_ENV_FILE = BACKEND_DIR / ".env.admin"
 
 
 class Settings(BaseSettings):
-    app_name: str = "Trade Shield Kenya API"
+    app_name: str = "Trade Shield Africa API"
     api_prefix: str = "/api/v1"
     database_url: str = "sqlite+aiosqlite:///./tradeshield.db"
     frontend_url: str = "http://localhost:3000"
