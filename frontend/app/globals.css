@@ -183,7 +183,7 @@ main h1, main h2, main h3 { font-family: var(--font-display), sans-serif; font-w
 .checkout-summary .pay-button { min-height: 44px; }
 .checkout-notice { margin: 10px 0 0 !important; color: #8a5d27 !important; }
 .scan-phone-label { display: block; margin: 0 0 7px; color: var(--ink); font-size: 12px; font-weight: 700; }
-.scan-phone-input { width: 100%; height: 44px; margin-bottom: 11px; padding: 0 11px; border: 1px solid #c5d2cc; border-radius: 3px; background: white; color: var(--ink); font: inherit; font-size: 13px; }
+.scan-phone-input { width: 100%; height: 44px; margin-bottom: 11px; padding: 0 11px; border: 1px solid #c5d2cc; border-radius: 3px; background: white; color: #142425; -webkit-text-fill-color: #142425; font: inherit; font-size: 13px; }
 .scan-phone-input:focus { border-color: #2d9e91; outline: 0; box-shadow: 0 0 0 3px rgba(45, 158, 145, .12); }
 .checkout-notice a { color: #246f66; font-weight: 700; }
 .scan-panel-head, .included-title, .sample-top, .sample-bottom { display: flex; align-items: center; justify-content: space-between; }
@@ -613,6 +613,8 @@ main h1, main h2, main h3 { font-family: var(--font-display), sans-serif; font-w
 .dark .url-input-wrap input { color: #f2f7f3; }
 .dark .url-input-wrap input::placeholder { color: #8da49a; }
 .dark .url-input-wrap:focus-within { border-color: #75e6dc; }
+.dark .scan-phone-input { border-color: #45615c; background: #102627; color: #f2f7f3; -webkit-text-fill-color: #f2f7f3; }
+.dark .scan-phone-input::placeholder { color: #8da49a; }
 .dark .form-message { color: #b5c8c0; }
 .dark .included-grid span { color: #c2d4cd; }
 .dark .included-grid svg, .dark .payment-foot svg { color: #8fe1d1; }

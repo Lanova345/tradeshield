@@ -264,14 +264,14 @@ export default function HomeExperience() {
             </div>
             <p className={message.startsWith("Enter") ? "form-message form-error" : "form-message"} id="url-message" aria-live="polite">{message || "Paste a URL to review it. No scan starts at this step."}</p>
           </form>
-          {assessmentReady && <form className="checkout-summary" onSubmit={startWebsiteAssessment}>
+          <form className="checkout-summary" onSubmit={startWebsiteAssessment}>
             <div className="checkout-price"><span>ONE-TIME ASSESSMENT</span><strong>KES 500</strong></div>
-            <p>Enter your M-Pesa number. The prompt shows the payable amount; scanning starts after payment is confirmed.</p>
+            <p>{assessmentReady ? "Enter your M-Pesa number. The prompt shows the payable amount; scanning starts after payment is confirmed." : "Enter your M-Pesa number here. Review the website address above to enable payment."}</p>
             <label className="scan-phone-label" htmlFor="scan-mpesa-phone">M-Pesa phone number</label>
-            <input className="scan-phone-input" id="scan-mpesa-phone" type="tel" autoComplete="tel" inputMode="tel" minLength={9} maxLength={24} placeholder="+254 7XX XXX XXX" value={mpesaPhone} onChange={(event) => setMpesaPhone(event.target.value)} required />
+            <input className="scan-phone-input" id="scan-mpesa-phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" minLength={9} maxLength={24} placeholder="+254 7XX XXX XXX" value={mpesaPhone} onChange={(event) => setMpesaPhone(event.target.value)} required />
             {paymentError && <p className="checkout-notice form-error" role="alert">{paymentError} {needsAccount && <a href="/account">Sign in</a>}</p>}
-            <button className="button button-dark pay-button" type="submit" disabled={isStartingScan || !mpesaPhone.trim()}>{isStartingScan ? "Opening M-Pesa..." : "Pay and scan once confirmed"} {!isStartingScan && <ArrowRight size={16} />}</button>
-          </form>}
+            <button className="button button-dark pay-button" type="submit" disabled={isStartingScan || !assessmentReady || !mpesaPhone.trim()}>{isStartingScan ? "Opening M-Pesa..." : "Pay and scan once confirmed"} {!isStartingScan && <ArrowRight size={16} />}</button>
+          </form>
           <div className="payment-foot"><ShieldCheck size={14} /> No scan runs before payment is verified.</div>
         </div>
         <aside className="results-panel" aria-live="polite"><div className="results-panel-head"><span><Radar size={17} /> REPORT PREVIEW</span><span className="results-state">AWAITING SCAN</span></div><div className="results-empty"><span className="results-icon"><ShieldCheck size={21} /></span><h3>Signals, put in context</h3><p>Scan findings will include their source and confidence so you can review the evidence.</p></div><div className="signal-preview-grid"><div className="signal-preview threat-history"><div className="signal-preview-head"><span><Activity size={15} /> THREAT HISTORY</span><span className="signal-tag">AFTER SCAN</span></div><p>Reputation checks and reported threat matches, with source details.</p><div className="provider-list"><span>VirusTotal</span><span>Google Safe Browsing</span></div></div><div className="signal-preview community-reports"><div className="signal-preview-head"><span><UsersRound size={15} /> COMMUNITY REPORTS</span><span className="signal-tag is-limited">NOT CONNECTED</span></div><p>Community reviews are not available yet. No user ratings or reports are shown.</p></div></div><div className="results-coverage"><span className="coverage-title">OTHER SCAN AREAS</span><div className="coverage-list">{checklist.filter((item) => item !== "Threat reputation").map((item) => <span key={item}>{item}</span>)}</div></div></aside>
