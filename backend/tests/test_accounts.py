@@ -44,7 +44,7 @@ class FakeSession:
     ("app_url", "expected_secure", "expected_samesite"),
     [
         ("http://localhost:3000", False, "lax"),
-        ("https://tradeshield-zeta.vercel.app", True, "none"),
+        ("https://tradeshield-zeta.vercel.app", True, "lax"),
     ],
 )
 def test_cookie_options_match_deployment_origin(monkeypatch, app_url, expected_secure, expected_samesite) -> None:
@@ -57,14 +57,14 @@ def test_cookie_options_match_deployment_origin(monkeypatch, app_url, expected_s
 
 
 @pytest.mark.asyncio
-async def test_logout_clears_secure_cross_site_cookie(monkeypatch) -> None:
+async def test_logout_clears_secure_session_cookie(monkeypatch) -> None:
     monkeypatch.setattr(settings, "app_url", "https://tradeshield-zeta.vercel.app")
     response = Response()
 
     await logout(response)
 
     set_cookie = response.headers["set-cookie"].lower()
-    assert "samesite=none" in set_cookie
+    assert "samesite=lax" in set_cookie
     assert "secure" in set_cookie
     assert "max-age=0" in set_cookie
 

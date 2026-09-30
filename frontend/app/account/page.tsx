@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Check, Eye, EyeOff, LockKeyhole, ShieldCheck } f
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { API_BASE_URL } from "@/lib/site-api";
 
 type AuthMode = "register" | "login";
 
@@ -18,9 +19,6 @@ type AuthUser = {
 type ApiProblem = {
   detail?: string | Array<{ msg?: string }>;
 };
-
-const configuredApiUrl = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/+$/, "");
-const API_BASE_URL = configuredApiUrl.endsWith("/api/v1") ? configuredApiUrl : `${configuredApiUrl}/api/v1`;
 
 async function getErrorMessage(response: Response) {
   try {

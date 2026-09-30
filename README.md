@@ -52,9 +52,9 @@ Deploy the repository on Vercel with the Root Directory set to `frontend`. Its `
 
 Deploy the FastAPI service from `backend` on Railway using `backend/railway.toml`, and attach a PostgreSQL service. Set the API service's `DATABASE_URL` to the database service reference, along with `FRONTEND_URL=https://tradeshield-zeta.vercel.app` and `APP_URL=https://tradeshield-zeta.vercel.app`. Also set `JWT_SECRET_KEY`, `ADMIN_USERNAME`, and `ADMIN_PASSWORD` to unique production values.
 
-In Vercel Project Settings > Environment Variables, set `NEXT_PUBLIC_API_URL` to `https://tradeshield-api-production-372c.up.railway.app` (the frontend adds `/api/v1` automatically), then redeploy the project. Add `PAYSTACK_SECRET_KEY` and optional provider keys to the Railway API service only; never expose backend secrets through `NEXT_PUBLIC_*` variables. `render.yaml` remains available as an alternate Render deployment blueprint.
+In Vercel Project Settings > Environment Variables, set `NEXT_PUBLIC_API_URL` to `https://tradeshield-api-production-372c.up.railway.app`, then redeploy the project. Browser API requests use a same-origin Vercel rewrite so account cookies are first-party. Add `PAYSTACK_SECRET_KEY` and optional provider keys to the Railway API service only; never expose backend secrets through `NEXT_PUBLIC_*` variables. `render.yaml` remains available as an alternate Render deployment blueprint.
 
-For reliable account sessions, use custom frontend and API hostnames under the same registrable domain (for example, `www.example.com` and `api.example.com`). The default Vercel and Railway hostnames are cross-site, while the current session cookie is `SameSite=Lax`.
+For reliable account sessions, the frontend proxies API requests through its own origin. Custom frontend and API hostnames under the same registrable domain (for example, `www.example.com` and `api.example.com`) are also suitable for direct API requests.
 
 Run backend tests from `backend`:
 

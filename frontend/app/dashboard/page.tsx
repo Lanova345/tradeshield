@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Check, CircleUserRound, LogOut, ShieldCheck } fr
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { API_BASE_URL } from "@/lib/site-api";
 
 type AuthUser = {
   id: string;
@@ -12,9 +13,6 @@ type AuthUser = {
   email: string;
   role: string;
 };
-
-const configuredApiUrl = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/+$/, "");
-const API_BASE_URL = configuredApiUrl.endsWith("/api/v1") ? configuredApiUrl : `${configuredApiUrl}/api/v1`;
 
 export default function DashboardPage() {
   const router = useRouter();

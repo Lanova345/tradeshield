@@ -46,4 +46,4 @@ async def current_user(request: Request, session: AsyncSession) -> User:
 
 def cookie_options() -> dict[str, object]:
     secure = settings.app_url.startswith("https://")
-    return {"key": TOKEN_COOKIE, "httponly": True, "secure": secure, "samesite": "none" if secure else "lax", "max_age": int(TOKEN_LIFETIME.total_seconds()), "path": "/"}
+    return {"key": TOKEN_COOKIE, "httponly": True, "secure": secure, "samesite": "lax", "max_age": int(TOKEN_LIFETIME.total_seconds()), "path": "/"}

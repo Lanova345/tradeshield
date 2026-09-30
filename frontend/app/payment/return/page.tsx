@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, CircleAlert, LoaderCircle, ShieldCheck } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { API_BASE_URL } from "@/lib/site-api";
 
 type ScanStatus = {
   id: string;
@@ -31,9 +32,6 @@ type Evidence = {
 
 type ScanReport = ScanStatus & { evidence: Evidence[] };
 type PageState = "checking" | "scanning" | "completed" | "pending" | "failed" | "error";
-
-const configuredApiUrl = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/+$/, "");
-const API_BASE_URL = configuredApiUrl.endsWith("/api/v1") ? configuredApiUrl : `${configuredApiUrl}/api/v1`;
 
 export default function PaymentReturnPage() {
   const [state, setState] = useState<PageState>("checking");

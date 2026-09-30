@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ConsultancyForm } from "@/components/consultancy-form";
+import { API_BASE_URL } from "@/lib/site-api";
 
 const checklist = ["Domain & DNS", "TLS & security", "Threat reputation", "Site content"];
 const faqs = [
@@ -14,9 +15,6 @@ const faqs = [
   ["Do you verify every investment company with CMA?", "We first consider the service a website claims to provide. CMA checks are relevant to certain capital-markets services; other services may fall under different regulators or no licensing requirement."],
   ["Is my submitted website opened safely?", "Production scans must use server-side fetching with DNS/IP checks, redirect limits, timeouts and response caps. This preview does not fetch submitted URLs or make a safety determination."],
 ];
-const configuredApiUrl = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/+$/, "");
-const API_BASE_URL = configuredApiUrl.endsWith("/api/v1") ? configuredApiUrl : `${configuredApiUrl}/api/v1`;
-
 function normalizeWebsite(value: string) {
   const candidate = value.trim().includes("://") ? value.trim() : `https://${value.trim()}`;
   const parsed = new URL(candidate);
